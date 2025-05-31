@@ -1,0 +1,9 @@
+[Unit]
+Description=Target for Cloudflare DDNS update script timer.
+
+# Modify this with the names of the other service files you wish to call
+# (e.g., Wants=site1-example.service site2-example.service)
+Wants=cf-ddns.service
+
+[Install]
+Also=cf-ddns.timer

@@ -1,0 +1,48 @@
+[Unit]
+Description=Custom Cloudflare DDNS Script
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/cf-ddns-systemd/cf-ddns.sh
+EnvironmentFile=%h/.config/cf-ddns/.env
+
+SystemCallFilter=~@privileged @resources @mount @cpu-emulation @debug @obsolete
+
+# General options
+KeyringMode=private
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+DevicePolicy=closed
+PrivateUsers=yes
+PrivateDevices=yes
+UMask=0077
+
+# The script doesn't need to change anything on the local system.
+ProtectControlGroups=yes
+ProtectKernelTunables=yes
+ProtectProc=invisible
+ProtectHome=read-only
+ProtectSystem=strict
+ProtectClock=yes
+ProtectHostname=yes
+ProtectKernelModules=yes
+MemoryDenyWriteExecute=yes
+
+# Prevent access to global resources
+PrivateTmp=yes
+ProcSubset=pid
+
+# The script shouldn't be able to assume more privileges
+NoNewPrivileges=yes
+
+StandardOutput=journal
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6
+
+[Install]
+WantedBy=default.target
+Also=cf-ddns.timer

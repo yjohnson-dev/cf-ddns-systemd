@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Cloudflare DDNS update script hourly
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+Unit=cf-ddns.target
+
+[Install]
+WantedBy=timers.target
