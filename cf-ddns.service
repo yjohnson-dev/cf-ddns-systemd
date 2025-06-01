@@ -5,8 +5,8 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=%h/cf-ddns-systemd/cf-ddns.sh
-EnvironmentFile=%h/.config/cf-ddns/.env
+ExecStart=%h/.local/bin/cf-ddns/cf-ddns.sh
+EnvironmentFile=%h/.config/cf-ddns/cf-ddns.env
 
 SystemCallFilter=~@privileged @resources @mount @cpu-emulation @debug @obsolete
 
